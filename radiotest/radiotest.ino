@@ -1,10 +1,3 @@
-/*
-   If you use the serial monitor for debugging remember to ster the baud rate to 115200.
-   The modules are set to only one-way communication. That means that the controller can only transmit and the tank can only receive.
-   If you wish to change this for two-way communication there is plenty of documentation to do so on the internet and in examples.
-
-   This program reads the analog input of the joystick and sends it in packets to te tank.
-*/
 #include <SPI.h>
 #include <RF24.h>
  int buttonState = 0;
@@ -42,7 +35,6 @@ void loop()
 {
   buttonState = digitalRead(2);
   if (buttonState == 0 && bpOld != buttonState) {
-   
      if (stateBP == 0) {
       stateBP = 1;
      } else {
@@ -51,12 +43,6 @@ void loop()
   }
   
   myRadio.write(&data, sizeof(data));
-   Serial.print("BP : ");
-   Serial.print(data.Z);
-  Serial.print("X:");
-  Serial.print(data.X);
-  Serial.print("    Y");
-  Serial.println(data.Y);
   data.Z = stateBP;
   data.X = analogRead(A0);
   data.Y = analogRead(A1);

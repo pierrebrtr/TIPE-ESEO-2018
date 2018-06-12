@@ -5,10 +5,10 @@
 #include <RF24.h>
 #include <RF24_config.h>
 int state = 0;
-#define trigPin A0      //Trig 
-#define echoPin A1     //Echo 
+#define trigPin A0
+#define echoPin A1
 const float SOUND_SPEED = 340.0 / 1000;
-const unsigned long MEASURE_TIMEOUT = 25000UL; // 25ms = ~8m à 340m/s
+const unsigned long MEASURE_TIMEOUT = 25000UL;
 RF24 myRadio (7, 6);
 struct package
 {
@@ -29,27 +29,23 @@ Package data;
 
 void setup()
 {
-  pinMode(4, OUTPUT);
-  tone(4, 500); 
-  delay(200);       
-    tone(4, 600); 
-  delay(200);       
-    tone(4, 700);
-  delay(200);     
-  noTone(4); 
-  delay(300); 
-
-    
-  tone(4, 800); 
+  //TONE
+  tone(4, 500);
   delay(200);
-  noTone(4); 
-  delay(70);     
-   tone(4, 800); 
-  delay(200); 
-  noTone(4);  
-  
-  
-  
+  tone(4, 600);
+  delay(200);
+  tone(4, 700);
+  delay(200);
+  noTone(4);
+  delay(300);
+  tone(4, 800);
+  delay(200);
+  noTone(4);
+  delay(70);
+  tone(4, 800);
+  delay(200);
+  noTone(4);
+
   state = 0;
   Serial.begin(115200);
   delay(1000);
@@ -104,10 +100,10 @@ void autoDrive() {
   digitalWrite(trigPin, LOW);
   delayMicroseconds(2);
   digitalWrite(trigPin, HIGH);
-  delayMicroseconds(10); //Trig envois pendant 10ms
+  delayMicroseconds(10);
   digitalWrite(trigPin, LOW);
 
-  // On calcul le temps pour l'aller retour du signal
+
   duree = pulseIn(echoPin, HIGH);
   distance = duree * 340 / (2 * 10000);
 
@@ -116,7 +112,7 @@ void autoDrive() {
   analogWrite(OUT1, 255);
   analogWrite(OUT2, 0);
 
-  delay (400);
+  delay (600);
 
   analogWrite(OUT3, 0);
   analogWrite(OUT4, 0);
@@ -127,24 +123,24 @@ void autoDrive() {
   digitalWrite(trigPin, LOW);
   delayMicroseconds(2);
   digitalWrite(trigPin, HIGH);
-  delayMicroseconds(10); //Trig envois pendant 10ms
+  delayMicroseconds(10);
   digitalWrite(trigPin, LOW);
 
-  // On calcul le temps pour l'aller retour du signal
+
   dureebis = pulseIn(echoPin, HIGH);
   distancebis = dureebis * 340 / (2 * 10000);
 
 
   if ( distance <= distancebis) {
-   state = 0;
-   return;
+    state = 0;
+    return;
   } else {
     analogWrite(OUT3, 0);
     analogWrite(OUT4, 255);
     analogWrite(OUT1, 0);
     analogWrite(OUT2, 255);
 
-    delay (400);
+    delay (600);
     state = 0;
     return;
   }
@@ -179,10 +175,10 @@ void loop()
       digitalWrite(trigPin, LOW);
       delayMicroseconds(2);
       digitalWrite(trigPin, HIGH);
-      delayMicroseconds(10); //Trig envois pendant 10ms
+      delayMicroseconds(10);
       digitalWrite(trigPin, LOW);
 
-      // On calcul le temps pour l'aller retour du signal
+
       duree = pulseIn(echoPin, HIGH);
       distance = duree * 340 / (2 * 10000);
 
